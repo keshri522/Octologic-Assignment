@@ -44,62 +44,74 @@ const vehicleData = [
 ];
 
 // here i am creating the function that will Create the table once my Server Started in my Online MySql Server
-// based on this table i can fetch all the details of the vehical Data
+
 const TableCreating = () => {
   DbConnection.connect((err) => {
     if (err) {
       console.log(`Error connecting to Database : ${err}`);
-      return; // if there is any error it will return back from here
-    }
-    // else if no error then show a message that databse connected successfully
-    else {
+      return;
+    } else {
       console.log("Database connected successfully");
-      // here checking if table is already exits
+      // Check if table already exists with same name
       const checkTableQuery = "SHOW TABLES LIKE 'vehicles'";
       DbConnection.query(checkTableQuery, (err, results) => {
         if (err) {
           console.log(err);
-          DbConnection.end(); // Close the database connection
+          DbConnection.end();
           return;
         } else {
-          // need to check if resutl===0 then  only intsert the data
+          // console.log(results.length); just for debugging
           if (results.length === 0) {
-            // then insdert into this
-            DbConnection.query(TableCreating, (err, results) => {
+            // if this is true then only insert data
+            // Table does not exist, create it
+            DbConnection.query(tableCreate, (err, createResults) => {
               if (err) {
-                console.log(`Error ins Creating the table: ${err}`);
+                console.log(`Error creating the table: ${err}`);
+                DbConnection.end();
               } else {
-                console.log(`Table created successfully`);
-                InsertDataIntoTable(); // this function will insert the data into the table
+                console.log("Table created successfully");
+                InsertDataIntoTable();
+              }
+            });
+          } else {
+            // Table exists, check if it has data
+            const checkDataQuery = "SELECT COUNT(*) AS rowCount FROM vehicles";
+            DbConnection.query(checkDataQuery, (err, dataResults) => {
+              if (err) {
+                console.log(`Error checking data in the table: ${err}`);
+                DbConnection.end(); //close the connection if any error
+              } else {
+                const TotalRowsCount = dataResults[0].rowCount; // return totla number of rows
+                if (TotalRowsCount < vehicleData.length) {
+                  console.log("No data is in the Table");
+                } else {
+                  console.log("Table already exists");
+                  DbConnection.end(); // close the connection
+                }
               }
             });
           }
-          // in the else condition i need to chekc whether
         }
-        // need to  Create the table first
-        DbConnection.query(tableCreate, (err, results) => {
-          if (err) {
-            console.log(`error in creating table ${err}`);
-          } else {
-            console.log("table created successfully");
-          }
-        });
       });
     }
   });
-  // this function will insert the data in the table
+
+  // Function to insert data into the 'vehicles' table
   const InsertDataIntoTable = () => {
-    // need to insert the vehicleDate into this newlyCreated table
+    // Insert data into the 'vehicles' table
     vehicleData.forEach((data) => {
       const insertQuery = `INSERT INTO vehicles (vehiclesType, wheeelsCount, subsubmodel) VALUES ('${data.vehiclesType}','${data.wheeelsCount}','${data.subsubmodel}')`;
       DbConnection.query(insertQuery, (err, results) => {
         if (err) {
-          console.log(`error in inserting data ${err}`);
+          console.log(`Error in inserting data: ${err}`);
         } else {
-          console.log("data inserted successfully");
+          console.log("Data inserted successfully");
         }
       });
     });
+
+    // Close the database connection after inserting data
+    DbConnection.end();
   };
 };
 
