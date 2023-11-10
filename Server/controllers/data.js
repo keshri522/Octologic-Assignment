@@ -22,12 +22,20 @@ const WheelsFunction = async (req, res) => {
       if (err) {
         res.status(500).json({ error: "error in fetching the results" });
       } else {
-        res.status(200).json(success);
+        const Vehiclestypes = success.map((ele) => {
+          return {
+            vehiclesType: ele.vehiclesType,
+            wheeelsCount: ele.wheeelsCount,
+          };
+        });
+        res.status(200).json(Vehiclestypes);
+        // res.status(200).json(success);
+        // instead of returning the success i can simply return the only vechiletypes
         // console.log(success); // just for debugging
       }
     });
   } catch (error) {
-    console.log(error.message); // For debugging purposes
+    // console.log(error.message); // For debugging purposes
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -42,16 +50,16 @@ const getModels = async (req, res) => {
         if (err) {
           res.status(500).json({ error: "error in fetching the results" });
         } else {
-          res.status(200).json(success);
+          // res.status(200).json(success);
           // if we want we can direct send the model istead of whole informaton like
-          // const model = success.map((ele) => {
-          //   return {
-          //     sunmodel: ele.subsubmodel,
-          //   };
-          // });
-          // // console.log(success); // just for debugging
-          // console.log(model);
-          // res.status(200).json(model);
+          const model = success.map((ele) => {
+            return {
+              sunmodel: ele.subsubmodel,
+            };
+          });
+          // console.log(success); // just for debugging
+          console.log(model);
+          res.status(200).json(model);
         }
       });
     }
