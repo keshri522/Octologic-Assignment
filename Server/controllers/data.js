@@ -43,7 +43,15 @@ const getModels = async (req, res) => {
           res.status(500).json({ error: "error in fetching the results" });
         } else {
           res.status(200).json(success);
-          console.log(success); // just for debugging
+          // if we want we can direct send the model istead of whole informaton like
+          // const model = success.map((ele) => {
+          //   return {
+          //     sunmodel: ele.subsubmodel,
+          //   };
+          // });
+          // // console.log(success); // just for debugging
+          // console.log(model);
+          // res.status(200).json(model);
         }
       });
     }
