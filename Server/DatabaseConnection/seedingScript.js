@@ -35,7 +35,7 @@ const vehicleData = [
   {
     vehiclesType: "cruiser",
     wheeelsCount: 2,
-    submodel: "HayaBusha 1000RR",
+    subsubmodel: "HayaBusha 1000RR",
   },
   { vehiclesType: "cruiser", wheeelsCount: 2, subsubmodel: "Nija Zr 1300CC" },
 
@@ -57,7 +57,7 @@ const TableCreating = () => {
       DbConnection.query(checkTableQuery, (err, results) => {
         if (err) {
           console.log(err);
-          DbConnection.end();
+          // DbConnection.end();
           return;
         } else {
           // console.log(results.length); just for debugging
@@ -67,7 +67,7 @@ const TableCreating = () => {
             DbConnection.query(tableCreate, (err, createResults) => {
               if (err) {
                 console.log(`Error creating the table: ${err}`);
-                DbConnection.end();
+                // DbConnection.end();
               } else {
                 console.log("Table created successfully");
                 InsertDataIntoTable();
@@ -79,14 +79,14 @@ const TableCreating = () => {
             DbConnection.query(checkDataQuery, (err, dataResults) => {
               if (err) {
                 console.log(`Error checking data in the table: ${err}`);
-                DbConnection.end(); //close the connection if any error
+                // DbConnection.end(); //close the connection if any error
               } else {
                 const TotalRowsCount = dataResults[0].rowCount; // return totla number of rows
                 if (TotalRowsCount < vehicleData.length) {
                   console.log("No data is in the Table");
                 } else {
                   console.log("Table already exists");
-                  DbConnection.end(); // close the connection
+                  // DbConnection.end(); // close the connection
                 }
               }
             });
@@ -116,4 +116,7 @@ const TableCreating = () => {
 };
 
 // calling the table Created Function that will Validate the Table and Create the tables
-module.exports = TableCreating;
+module.exports = {
+  DbConnection,
+  TableCreating,
+};

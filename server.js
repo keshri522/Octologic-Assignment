@@ -5,7 +5,7 @@ const dotenv = require("dotenv").config(); // for the eniviorment file to provid
 const cors = require("cors");
 const router = require("./Server/routes/data");
 // databconnection or Seeding Script files
-const ConnectionSeeding = require("./Server/DatabaseConnection/seedingScript");
+const { TableCreating } = require("./Server/DatabaseConnection/seedingScript");
 // middlewares //
 app.use(express.json()); // parese the data coming from the HTTP body or the Server
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +13,7 @@ app.use(cors()); // for aacessing the data in two diffrent orgins
 app.use("/", router); // this is working only one / routes
 
 // calling the Seeding function
-ConnectionSeeding();
+TableCreating();
 const port = process.env.PORT || 5000;
 app.get("/hell", (req, res) => {
   res.send("hello world");
