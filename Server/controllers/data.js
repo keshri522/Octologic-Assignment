@@ -32,4 +32,25 @@ const WheelsFunction = async (req, res) => {
   }
 };
 
-module.exports = WheelsFunction;
+// this controllers function will return the  subsubmodel or type of model vehicle based on the wheeltype which is coming from the frontend
+const getModels = async (req, res) => {
+  const { vehicletypes } = req.query;
+  try {
+    if (vehicletypes) {
+      const dataQuery = `SELECT * FROM vehicles WHERE vehiclesType = '${vehicletypes}'`;
+      const results = await DbConnection.query(dataQuery, (err, success) => {
+        if (err) {
+          res.status(500).json({ error: "error in fetching the results" });
+        } else {
+          res.status(200).json(success);
+          console.log(success); // just for debugging
+        }
+      });
+    }
+  } catch (error) {
+    console.log(error); // just for debugging
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+module.exports = { WheelsFunction, getModels };

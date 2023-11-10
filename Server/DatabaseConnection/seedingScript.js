@@ -20,27 +20,85 @@ const tableCreate = `
     id INT AUTO_INCREMENT PRIMARY KEY,
     vehiclesType VARCHAR(255),
     wheeelsCount INT,
-    subsubmodel VARCHAR(255)
+    subsubmodel VARCHAR(255),
+    fromDate DATE,
+    toDate DATE
   )
 `;
 // once table is Create then  i need to insert some data as soon  as the table Created
 const vehicleData = [
-  { vehiclesType: "hatchback", wheeelsCount: 4, subsubmodel: "Indica 403" },
-  { vehiclesType: "hatchback", wheeelsCount: 4, subsubmodel: "Scorpio" },
-  { vehiclesType: "suv", wheeelsCount: 4, subsubmodel: "Toyota Nive" },
-  { vehiclesType: "suv", wheeelsCount: 4, subsubmodel: "Thar 4v4" },
-  { vehiclesType: "sedan", wheeelsCount: 4, subsubmodel: "Nisan Marco p1" },
-  { vehiclesType: "sedan", wheeelsCount: 4, subsubmodel: "Toyota  Nimble" },
+  {
+    vehiclesType: "hatchback",
+    wheeelsCount: 4,
+    subsubmodel: "Indica 403",
+    fromDate: "2023-04-01",
+    toDate: "2023-09-30",
+  },
+  {
+    vehiclesType: "hatchback",
+    wheeelsCount: 4,
+    subsubmodel: "Scorpio",
+    fromDate: "2023-05-01",
+    toDate: "2023-10-12",
+  },
+  {
+    vehiclesType: "suv",
+    wheeelsCount: 4,
+    subsubmodel: "Toyota Nive",
+    fromDate: "2022-01-01",
+    toDate: "2022-09-11",
+  },
+  {
+    vehiclesType: "suv",
+    wheeelsCount: 4,
+    subsubmodel: "Thar 4v4",
+    fromDate: "2023-04-01",
+    toDate: "2023-09-30",
+  },
+  {
+    vehiclesType: "sedan",
+    wheeelsCount: 4,
+    subsubmodel: "Nisan Marco p1",
+    fromDate: "2023-07-01",
+    toDate: "2023-11-30",
+  },
+  {
+    vehiclesType: "sedan",
+    wheeelsCount: 4,
+    subsubmodel: "Toyota  Nimble",
+    fromDate: "2023-04-01",
+    toDate: "2023-09-30",
+  },
 
   {
     vehiclesType: "cruiser",
     wheeelsCount: 2,
     subsubmodel: "HayaBusha 1000RR",
+    fromDate: "2023-09-01",
+    toDate: "2023-10-22",
   },
-  { vehiclesType: "cruiser", wheeelsCount: 2, subsubmodel: "Nija Zr 1300CC" },
+  {
+    vehiclesType: "cruiser",
+    wheeelsCount: 2,
+    subsubmodel: "Nija Zr 1300CC",
+    fromDate: "2023-04-01",
+    toDate: "2023-09-30",
+  },
 
-  { vehiclesType: "sports", wheeelsCount: 2, subsubmodel: "Porsche 901" },
-  { vehiclesType: "sports", wheeelsCount: 2, subsubmodel: "Bulet Nida 1000CC" },
+  {
+    vehiclesType: "sports",
+    wheeelsCount: 2,
+    subsubmodel: "Porsche 901",
+    fromDate: "2021-04-03",
+    toDate: "2022-09-30",
+  },
+  {
+    vehiclesType: "sports",
+    wheeelsCount: 2,
+    subsubmodel: "Bulet Nida 1000CC",
+    fromDate: "2023-02-11",
+    toDate: "2023-12-30",
+  },
 ];
 
 // here i am creating the function that will Create the table once my Server Started in my Online MySql Server
@@ -84,6 +142,7 @@ const TableCreating = () => {
                 const TotalRowsCount = dataResults[0].rowCount; // return totla number of rows
                 if (TotalRowsCount < vehicleData.length) {
                   console.log("No data is in the Table");
+                  console.log(TotalRowsCount);
                 } else {
                   console.log("Table already exists");
                   // DbConnection.end(); // close the connection
@@ -100,7 +159,17 @@ const TableCreating = () => {
   const InsertDataIntoTable = () => {
     // Insert data into the 'vehicles' table
     vehicleData.forEach((data) => {
-      const insertQuery = `INSERT INTO vehicles (vehiclesType, wheeelsCount, subsubmodel) VALUES ('${data.vehiclesType}','${data.wheeelsCount}','${data.subsubmodel}')`;
+      const insertQuery = `
+      INSERT INTO vehicles (vehiclesType, wheeelsCount, subsubmodel, fromDate, toDate)
+      VALUES (
+        '${data.vehiclesType}',
+        '${data.wheeelsCount}',
+        '${data.subsubmodel}',
+        STR_TO_DATE('${data.fromDate}', '%Y-%m-%d'), 
+        STR_TO_DATE('${data.toDate}', '%Y-%m-%d')
+      )
+    `;
+
       DbConnection.query(insertQuery, (err, results) => {
         if (err) {
           console.log(`Error in inserting data: ${err}`);
