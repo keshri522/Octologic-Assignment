@@ -31,7 +31,7 @@ Copy code
 ]
 2. getModels API
 Description
- # Fetch submodels or types of vehicles based on the specified vehicle type.
+ - Fetch submodels or types of vehicles based on the specified vehicle type.
 
 Endpoint
 http
