@@ -76,6 +76,7 @@ Copy code
   "toDate": "2023-11-10"
 }
 Response
+- Note here Proper validation of date like if vehicles is Already Booked on particular date then return a res with that Already booked.
 json
 Copy code
 {
@@ -86,9 +87,11 @@ json
 Copy code
 {
   "error": "Compact SUV is already booked between 2023-11-05 and 2023-11-15"
+
 }
-📝 Notes
+- 📝 Notes
 - Ensure all required parameters are included in the request.
 - Dates should be in the format 'YYYY-MM-DD'.
 - Handle errors gracefully and provide descriptive error messages.
 - Feel free to customize this template further based on your project's branding or additional details you want to highlight.
+
