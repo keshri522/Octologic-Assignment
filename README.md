@@ -29,6 +29,7 @@ Copy code
   }
 
 ]
+
 2. getModels API
 Description
  - Fetch submodels or types of vehicles based on the specified vehicle type.
@@ -53,8 +54,9 @@ Copy code
   {
     "submodel": "Mid-size SUV"
   }
-  // ... other submodels
+
 ]
+
 3. bookvehicle API
 Description
 - Submit booking data for a vehicle and check for availability.
