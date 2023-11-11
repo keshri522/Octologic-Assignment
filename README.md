@@ -5,6 +5,17 @@
 Description
 Retrieve vehicle types based on the number of wheels specified.
 
+ # TechStack
+ - Node.js
+ - SQL
+ - MySQl Db
+ - EXPRESS
+ - DOTENV
+ - NODEMON
+
+
+ # Note Server is On the LocalHost So Make sure to configure your MYSQL with LocalMachine or Any Host
+ 
  # Endpoint
 http
 Copy code
