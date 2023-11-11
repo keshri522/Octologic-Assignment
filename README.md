@@ -10,7 +10,7 @@ http
 Copy code
 - GET /wheelsFunction
 - Query Parameters
- # vehiclewheels (required): Number of wheels for filtering vehicle types.
+  vehiclewheels (required): Number of wheels for filtering vehicle types.
 Example
 http
 Copy code
