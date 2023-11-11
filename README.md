@@ -18,7 +18,7 @@ Copy code
 Response
 json
 Copy code
-[
+
   {
     "vehiclesType": "Sedan",
     "wheeelsCount": 4
@@ -28,7 +28,7 @@ Copy code
     "wheeelsCount": 4
   }
 
-]
+
 
 2. getModels API
 Description
@@ -47,7 +47,7 @@ GET /getModels?vehicletypes=SUV
 Response
 json
 Copy code
-[
+
   {
     "submodel": "Compact SUV"
   },
@@ -55,7 +55,7 @@ Copy code
     "submodel": "Mid-size SUV"
   }
 
-]
+
 
 3. bookvehicle API
 Description
@@ -88,7 +88,7 @@ Copy code
   "error": "Compact SUV is already booked between 2023-11-05 and 2023-11-15"
 }
 📝 Notes
-Ensure all required parameters are included in the request.
-Dates should be in the format 'YYYY-MM-DD'.
-Handle errors gracefully and provide descriptive error messages.
-Feel free to customize this template further based on your project's branding or additional details you want to highlight.
+- Ensure all required parameters are included in the request.
+- Dates should be in the format 'YYYY-MM-DD'.
+- Handle errors gracefully and provide descriptive error messages.
+- Feel free to customize this template further based on your project's branding or additional details you want to highlight.
