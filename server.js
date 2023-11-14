@@ -18,17 +18,6 @@ app.use("/", router); // this is working only one / routes
 // calling the Seeding function
 TableCreating();
 const port = process.env.PORT || 5000;
-app.get("/hell", (req, res) => {
-  const find = 'SELECT * FROM vehicles WHERE fromDate = "2023-09-01"';
-  DbConnection.query(find, (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Internal Server Error" });
-    }
-    console.log(result);
-    res.status(200).json({ data: result });
-  });
-});
 
 // creating a Server using app
 
